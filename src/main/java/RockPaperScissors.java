@@ -27,7 +27,16 @@ public class RockPaperScissors {
       System.out.println("Round number " + (i + 1) + " out of " + rounds);
       Scanner scan = new Scanner(System.in);
       System.out.println("Choose a number 1 - rock, 2 - paper, 3 - scissors");
-      int userChoice = Integer.parseInt(scan.nextLine());
+      int userChoice = 0;
+      do {
+        try {
+          userChoice = Integer.parseInt(scan.nextLine());
+        } catch (NumberFormatException e) {
+          System.out.println("Please choose a number");
+          continue;
+        }
+
+      } while(userChoice != 1 && userChoice != 2 && userChoice != 3);
       System.out.println("You chose " + possibleChoices.get(userChoice));
       determineDefeat(userChoice);
       if (checkGameOver()) {
@@ -104,11 +113,17 @@ public class RockPaperScissors {
   }
 
   public static int handshake() {
-    int rounds;
+    int rounds = 0;
     Scanner scan = new Scanner(System.in);
     System.out.println("Out of how many games do you want to play? Choose odd number");
     do {
-      rounds = Integer.parseInt(scan.nextLine());
+      try {
+        rounds = Integer.parseInt(scan.nextLine());
+      } catch(NumberFormatException e) {
+        System.out.println("Please choose an odd number");
+        continue;
+      }
+
     } while(rounds % 2 == 0);
 
     return rounds;
